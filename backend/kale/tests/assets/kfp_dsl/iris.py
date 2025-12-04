@@ -10,9 +10,9 @@ from kfp.dsl import Input, Output, Dataset, HTML, Metrics, ClassificationMetrics
     pip_index_urls=['https://pypi.org/simple'],
 )
 def load_transform_data_step(load_transform_data_html_report: Output[HTML], x_trn_artifact: Output[Dataset], x_tst_artifact: Output[Dataset], y_trn_artifact: Output[Dataset], y_tst_artifact: Output[Dataset], n_estimators_param: int = 500, max_depth_param: int = 2):
-    _kale_pipeline_parameters_block = '''
-        N_ESTIMATORS = 500
-        MAX_DEPTH = 2
+    _kale_pipeline_parameters_block = f'''
+        N_ESTIMATORS = { n_estimators_param }
+        MAX_DEPTH = { max_depth_param }
     '''
 
     _kale_data_loading_block = '''
@@ -100,9 +100,9 @@ def load_transform_data_step(load_transform_data_html_report: Output[HTML], x_tr
     pip_index_urls=['https://pypi.org/simple'],
 )
 def train_model_step(train_model_html_report: Output[HTML], x_trn_artifact: Input[Dataset], y_trn_artifact: Input[Dataset], model_artifact: Output[Model], n_estimators_param: int = 500, max_depth_param: int = 2):
-    _kale_pipeline_parameters_block = '''
-        N_ESTIMATORS = 500
-        MAX_DEPTH = 2
+    _kale_pipeline_parameters_block = f'''
+        N_ESTIMATORS = { n_estimators_param }
+        MAX_DEPTH = { max_depth_param }
     '''
     # Saves the received artifacts to be retrieved during the nb execution
     from kale import marshal as _kale_marshal
@@ -190,9 +190,9 @@ def train_model_step(train_model_html_report: Output[HTML], x_trn_artifact: Inpu
     pip_index_urls=['https://pypi.org/simple'],
 )
 def evaluate_model_step(evaluate_model_html_report: Output[HTML], model_artifact: Input[Model], x_tst_artifact: Input[Dataset], y_tst_artifact: Input[Dataset], n_estimators_param: int = 500, max_depth_param: int = 2):
-    _kale_pipeline_parameters_block = '''
-        N_ESTIMATORS = 500
-        MAX_DEPTH = 2
+    _kale_pipeline_parameters_block = f'''
+        N_ESTIMATORS = { n_estimators_param }
+        MAX_DEPTH = { max_depth_param }
     '''
     # Saves the received artifacts to be retrieved during the nb execution
     from kale import marshal as _kale_marshal
